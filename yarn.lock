@@ -1525,6 +1525,13 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+hoist-non-react-statics@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
+  integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
+  dependencies:
+    react-is "^16.7.0"
+
 https-proxy-agent@^5.0.0:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz#c59ef224a04fe8b754f3db0063a25ea30d0005d6"
@@ -2035,6 +2042,13 @@ next-auth@^4.22.1:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
+next-superjson-plugin@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/next-superjson-plugin/-/next-superjson-plugin-0.5.7.tgz#9d0b3a32946f85af7423e835d7396f18e1b30507"
+  integrity sha512-bkF49B/Pcf0GCh10vXL+hjBodC404FgzEsl3wtrjwqvTkoWDnqBOgP2KqWR9sF1tz4MSMlo872Q4Srl/2XRFWw==
+  dependencies:
+    hoist-non-react-statics "^3.3.2"
+
 next@13.4.2:
   version "13.4.2"
   resolved "https://registry.yarnpkg.com/next/-/next-13.4.2.tgz#972f73a794f2c61729facedc79c49b22bdc89f0c"
@@ -2468,7 +2482,7 @@ react-icons@^4.8.0:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.8.0.tgz#621e900caa23b912f737e41be57f27f6b2bff445"
   integrity sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==
 
-react-is@^16.13.1:
+react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
