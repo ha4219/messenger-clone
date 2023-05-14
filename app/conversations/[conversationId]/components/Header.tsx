@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { HiChevronLeft, HiEllipsisHorizontal } from "react-icons/hi2";
 import ProfileDrawer from "./ProfilerDrawer";
+import AvatarGroup from "@/app/components/AvatarGroup";
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -32,15 +33,19 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
         data={conversation}
         onClose={() => setDrawerOpen(false)}
       />
-      <div className="bg-white w-full flex border-b-[1px] sm:px-4 py-3 px-4 lg:px-6 justify-between items-center shadow-sm">
-        <div className="flex gap-3 items-center">
+      <div className="flex w-full items-center justify-between border-b-[1px] bg-white px-4 py-3 shadow-sm sm:px-4 lg:px-6">
+        <div className="flex items-center gap-3">
           <Link
-            className="lg:hidden block text-sky-500 hover:text-sky-500 transition cursor-pointer"
+            className="block cursor-pointer text-sky-500 transition hover:text-sky-500 lg:hidden"
             href="/conversations"
           >
             <HiChevronLeft size={32} />
           </Link>
-          <Avatar user={otherUser} />
+          {conversation.isGroup ? (
+            <AvatarGroup users={conversation.users} />
+          ) : (
+            <Avatar user={otherUser} />
+          )}
           <div className="flex flex-col">
             <div>{conversation.name || otherUser.name}</div>
             <div className="text-sm font-light text-neutral-500">
@@ -51,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
         <HiEllipsisHorizontal
           size={32}
           onClick={() => setDrawerOpen(true)}
-          className="text-sky-500 cursor-pointer hover:text-sky-600 transition"
+          className="cursor-pointer text-sky-500 transition hover:text-sky-600"
         />
       </div>
     </>

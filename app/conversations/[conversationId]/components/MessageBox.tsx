@@ -6,6 +6,8 @@ import { FullMessageType } from "@/app/types";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import ImageModal from "./ImageModal";
 
 interface MessageBoxProps {
   isLast?: boolean;
@@ -14,6 +16,7 @@ interface MessageBoxProps {
 
 const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
   const session = useSession();
+  const [imageModalOpen, setImageModalOpen] = useState(false);
 
   const isOwn = session.data?.user?.email === data?.sender?.email;
   const seenList = (data.seen || [])
@@ -29,12 +32,6 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
     isOwn ? "bg-sky-500 text-white" : "bg-gray-100",
     data.image ? "rounded-md p-0" : "rounded-full py-2 px-3",
   );
-  console.log(
-    data,
-    session?.data?.user?.email,
-    (data.seen || []).filter((user) => user.email !== data.sender?.email),
-  );
-  console.log(seenList, isLast, isOwn, seenList.length > 0);
 
   return (
     <div className={container}>
@@ -49,20 +46,26 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
           </div>
         </div>
         <div className={message}>
+          <ImageModal
+            src={data.image}
+            isOpen={imageModalOpen}
+            onClose={() => setImageModalOpen(false)}
+          />
           {data.image ? (
             <Image
+              onClick={() => setImageModalOpen(true)}
               alt="Image"
               height="288"
               width="288"
               src={data.image}
-              className="object-cover cursor-pointer hover:scale-110 transition translate"
+              className="translate cursor-pointer object-cover transition hover:scale-110"
             />
           ) : (
             <div>{data.body}</div>
           )}
         </div>
         {isLast && isOwn && seenList.length > 0 && (
-          <div className="text-xs font-light text=grau-500">{`Seen by ${seenList}`}</div>
+          <div className="text=grau-500 text-xs font-light">{`Seen by ${seenList}`}</div>
         )}
       </div>
     </div>

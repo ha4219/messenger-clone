@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import Avatar from '@/app/components/Avatar';
-import useOtherUser from '@/app/hooks/useOtherUser';
-import { FullConversationType, FullMessageType } from '@/app/types';
-import clsx from 'clsx';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useCallback, useMemo } from 'react';
-import { format } from 'date-fns';
+import Avatar from "@/app/components/Avatar";
+import useOtherUser from "@/app/hooks/useOtherUser";
+import { FullConversationType, FullMessageType } from "@/app/types";
+import clsx from "clsx";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import { format } from "date-fns";
+import AvatarGroup from "@/app/components/AvatarGroup";
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -52,41 +53,45 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
 
   const lastMessageText = useMemo(() => {
     if (lastMessage?.image) {
-      return 'Sent an image';
+      return "Sent an image";
     }
 
     if (lastMessage?.body) {
       return lastMessage.body;
     }
 
-    return 'started a conversation';
+    return "started a conversation";
   }, [lastMessage]);
 
   return (
     <div
       onClick={handleClick}
       className={clsx(
-        `w-full relative flex items-center space-x-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer p-3`,
-        selected ? 'bg-neutral-100' : 'bg-white',
+        `relative flex w-full cursor-pointer items-center space-x-3 rounded-lg p-3 transition hover:bg-neutral-100`,
+        selected ? "bg-neutral-100" : "bg-white",
       )}
     >
-      <Avatar user={otherUser} />
+      {data.isGroup ? (
+        <AvatarGroup users={data.users} />
+      ) : (
+        <Avatar user={otherUser} />
+      )}
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
-          <div className="flex justify-between items-center mb-1">
+          <div className="mb-1 flex items-center justify-between">
             <p className="text-md font-medium text-gray-900">
               {data.name || otherUser.name}
             </p>
             {lastMessage?.createdAt && (
-              <p className="text-xs text-gray-400 font-light">
-                {format(new Date(lastMessage.createdAt), 'p')}
+              <p className="text-xs font-light text-gray-400">
+                {format(new Date(lastMessage.createdAt), "p")}
               </p>
             )}
           </div>
           <p
             className={clsx(
               `truncate text-sm`,
-              hasSeen ? 'text-gray-500' : 'text-black font-medium',
+              hasSeen ? "text-gray-500" : "font-medium text-black",
             )}
           >
             {lastMessageText}
